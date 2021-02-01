@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
@@ -92,7 +93,6 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
                 RadioButton checkedType = (RadioButton) getActivity().findViewById(expenseTypeGroup
                         .getCheckedRadioButtonId());
                 String type = (String) checkedType.getText();
-
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth();
                 int year = datePicker.getYear();

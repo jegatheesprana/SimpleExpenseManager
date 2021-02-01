@@ -1,5 +1,9 @@
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,10 +17,11 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
  * This is an In-Memory implementation of TransactionDAO interface. This is not a persistent storage. All the
  * transaction logs are stored in a LinkedList in memory.
  */
-public class PersistentTransactionDAO implements TransactionDAO {
+public class PersistentTransactionDAO extends SQLiteOpenHelper implements TransactionDAO {
     private final List<Transaction> transactions;
 
-    public PersistentTransactionDAO() {
+    public PersistentTransactionDAO(Context context) {
+        super(context, "transactions.db", null, 1);
         transactions = new LinkedList<>();
     }
 
@@ -41,4 +46,13 @@ public class PersistentTransactionDAO implements TransactionDAO {
         return transactions.subList(size - limit, size);
     }
 
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
 }

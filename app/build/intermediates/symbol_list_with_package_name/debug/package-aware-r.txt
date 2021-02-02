@@ -805,6 +805,7 @@ id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
 id disableHome
+id divider
 id edit_query
 id end
 id end_padder
@@ -914,6 +915,7 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
@@ -1050,6 +1052,7 @@ string account_no
 string account_text
 string action
 string action_settings
+string add_account
 string add_account_text
 string amount_text
 string app_name

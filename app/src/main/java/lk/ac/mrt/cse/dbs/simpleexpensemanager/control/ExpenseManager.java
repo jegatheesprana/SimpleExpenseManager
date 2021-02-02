@@ -95,6 +95,10 @@ public abstract class ExpenseManager implements Serializable {
         return account;
     }
 
+    public void removeAccount(String accountNo) throws InvalidAccountException {
+        accountsHolder.removeAccount(accountNo);
+    }
+
     /***
      * Get access to the AccountDAO concrete implementation.
      *

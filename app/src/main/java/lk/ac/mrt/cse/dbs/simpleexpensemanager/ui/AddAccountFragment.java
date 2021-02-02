@@ -33,6 +33,7 @@ import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 
 import static lk.ac.mrt.cse.dbs.simpleexpensemanager.Constants.EXPENSE_MANAGER;
@@ -137,9 +138,9 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    private void addRow (View rootView, TableLayout accountsTableLayout,
-                         Account account) {
-        TableRow tr = new TableRow(rootView.getContext());
+    private void addRow (View rootView, final TableLayout accountsTableLayout,
+                         final Account account) {
+        final TableRow tr = new TableRow(rootView.getContext());
         TextView lDateVal = new TextView(rootView.getContext());
 
         TextView lAccountNoVal = new TextView(rootView.getContext());
@@ -158,6 +159,12 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Delete",
                         Toast.LENGTH_SHORT).show();
+                accountsTableLayout.removeView(tr);
+                try {
+                    currentExpenseManager.removeAccount(account.getAccountNo());
+                } catch (InvalidAccountException e) {
+                    e.printStackTrace();
+                }
             }
         });
         accountsTableLayout.addView(tr);

@@ -84,6 +84,10 @@ public class PersistentAccountDAO extends DatabaseStore implements AccountDAO {
             throw new InvalidAccountException(msg);
         }
         accounts.remove(accountNo);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String delQuery = "DELETE FROM " + ACCOUNTS + " WHERE accountNo = " + accountNo;
+        db.execSQL(delQuery);
     }
 
     @Override

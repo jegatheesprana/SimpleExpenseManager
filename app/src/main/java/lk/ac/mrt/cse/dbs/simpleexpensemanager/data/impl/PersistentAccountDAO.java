@@ -26,13 +26,12 @@ import static android.widget.Toast.LENGTH_SHORT;
  * This is an In-Memory implementation of the AccountDAO interface. This is not a persistent storage. A HashMap is
  * used to store the account details temporarily in the memory.
  */
-public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO {
+public class PersistentAccountDAO extends DatabaseStore implements AccountDAO {
     public static final String ACCOUNTS = "accounts";
     private final Map<String, Account> accounts;
 
     public PersistentAccountDAO(@Nullable Context context) {
-        super(context, ACCOUNTS + ".db", null, 1);
-
+        super(context);
         //this.accounts = new HashMap<>();
         this.accounts = getFromDB();
     }
@@ -60,6 +59,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
     public void addAccount(Account account) {
 
         accounts.put(account.getAccountNo(), account);
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -105,20 +105,7 @@ public class PersistentAccountDAO extends SQLiteOpenHelper implements AccountDAO
         accounts.put(accountNo, account);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + ACCOUNTS + " (" +
-                "accountNo STRING PRIMARY KEY," +
-                "bankName STRING," +
-                "accountHolderName STRING," +
-                "balance REAL)";
-        db.execSQL(createTableStatement);
-    }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-
-    }
 
     public Map<String, Account> getFromDB () {
         Map<String, Account> accounts = new HashMap<>();

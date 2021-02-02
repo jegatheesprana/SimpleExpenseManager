@@ -34,4 +34,7 @@
     <string name="label_manage">Manage</string>
     <string name="label_add_account">Add account</string>
     <string name="label_logs">Logs</string>
+    <string name="account_no">Account No.</string>
+    <string name="acc_holder">Acc Holder</string>
+    <string name="action">Action</string>
 </resources>

@@ -23,9 +23,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 
 import static lk.ac.mrt.cse.dbs.simpleexpensemanager.Constants.EXPENSE_MANAGER;
 /**
@@ -38,6 +46,9 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
     private EditText accountHolderName;
     private EditText initialBalance;
     private Button addAccount;
+    private List<Account> accounts;
+    private TableLayout accountsTableLayout;
+    private View rootView;
 
     public static AddAccountFragment newInstance(ExpenseManager expenseManager) {
         AddAccountFragment addAccountFragment = new AddAccountFragment();
@@ -52,7 +63,7 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_add_account, container, false);
+        rootView = inflater.inflate(R.layout.fragment_add_account, container, false);
         accountNumber = (EditText) rootView.findViewById(R.id.account_num);
         bankName = (EditText) rootView.findViewById(R.id.bank_name);
         accountHolderName = (EditText) rootView.findViewById(R.id.account_holder_name);
@@ -61,6 +72,14 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
         addAccount.setOnClickListener(this);
 
         currentExpenseManager = (ExpenseManager) getArguments().get(EXPENSE_MANAGER);
+        accounts = new ArrayList<>();
+        if (currentExpenseManager != null) {
+            accounts = currentExpenseManager.getAccountList();
+        }
+        accountsTableLayout = (TableLayout) rootView.findViewById(R.id.accounts_table);
+        TableRow accountsTableRowHeader = (TableRow) rootView.findViewById(R.id.accounts_table_header);
+
+        generateTransactionsTable(rootView, accountsTableLayout,accounts);
         return rootView;
     }
 
@@ -95,8 +114,9 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
                 }
 
                 if (currentExpenseManager != null) {
-                    currentExpenseManager.addAccount(accountNumStr, bankNameStr, accountHolderStr,
+                    Account lastAccount = currentExpenseManager.addAccount(accountNumStr, bankNameStr, accountHolderStr,
                             Double.parseDouble(initialBalanceStr));
+                    addRow(rootView, accountsTableLayout, lastAccount);
                 }
                 cleanUp();
                 break;
@@ -108,5 +128,38 @@ public class AddAccountFragment extends Fragment implements View.OnClickListener
         bankName.getText().clear();
         accountHolderName.getText().clear();
         initialBalance.getText().clear();
+    }
+
+    private void generateTransactionsTable(View rootView, TableLayout accountsTableLayout,
+                                           List<Account> accounts) {
+        for (Account account : accounts) {
+            addRow(rootView, accountsTableLayout, account);
+        }
+    }
+
+    private void addRow (View rootView, TableLayout accountsTableLayout,
+                         Account account) {
+        TableRow tr = new TableRow(rootView.getContext());
+        TextView lDateVal = new TextView(rootView.getContext());
+
+        TextView lAccountNoVal = new TextView(rootView.getContext());
+        lAccountNoVal.setText(account.getAccountNo());
+        tr.addView(lAccountNoVal);
+
+        TextView accountHolder = new TextView(rootView.getContext());
+        accountHolder.setText(account.getAccountHolderName().toString());
+        tr.addView(accountHolder);
+
+        TextView delBtn = new TextView(rootView.getContext());
+        delBtn.setText("Delete");
+        tr.addView(delBtn);
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Delete",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        accountsTableLayout.addView(tr);
     }
 }

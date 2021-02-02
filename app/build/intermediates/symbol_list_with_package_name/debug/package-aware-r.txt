@@ -715,6 +715,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ic_baseline_delete_24
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
@@ -742,6 +743,8 @@ id account_num
 id account_selector
 id account_text_tv
 id account_tv
+id accounts_table
+id accounts_table_header
 id action0
 id action_bar
 id action_bar_activity_content
@@ -1041,8 +1044,11 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string acc_holder
 string account_holder_text
+string account_no
 string account_text
+string action
 string action_settings
 string add_account_text
 string amount_text

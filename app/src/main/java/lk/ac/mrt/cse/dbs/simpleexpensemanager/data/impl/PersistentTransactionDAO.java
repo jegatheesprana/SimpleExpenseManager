@@ -24,12 +24,12 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
  * This is an In-Memory implementation of TransactionDAO interface. This is not a persistent storage. All the
  * transaction logs are stored in a LinkedList in memory.
  */
-public class PersistentTransactionDAO extends SQLiteOpenHelper implements TransactionDAO {
+public class PersistentTransactionDAO extends DatabaseStore implements TransactionDAO {
     public static final String TRANSACTIONS = "transactions";
     private final List<Transaction> transactions;
 
     public PersistentTransactionDAO(Context context) {
-        super(context, TRANSACTIONS + ".db", null, 1);
+        super(context);
         transactions = getFromDB();
     }
 
@@ -68,22 +68,6 @@ public class PersistentTransactionDAO extends SQLiteOpenHelper implements Transa
         }
         // return the last <code>limit</code> number of transaction logs
         return transactions.subList(size - limit, size);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + TRANSACTIONS + " (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "date TEXT," +
-                "accountNo STRING," +
-                "expenseType STRING," +
-                "amount REAL)";
-        db.execSQL(createTableStatement);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
     }
 
     public List<Transaction> getFromDB () {

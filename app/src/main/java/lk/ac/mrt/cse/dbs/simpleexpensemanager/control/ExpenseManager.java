@@ -46,6 +46,8 @@ public abstract class ExpenseManager implements Serializable {
         return accountsHolder.getAccountNumbersList();
     }
 
+    public List<Account> getAccountList() { return accountsHolder.getAccountsList(); }
+
     /***
      * Update the account balance.
      *
@@ -87,9 +89,10 @@ public abstract class ExpenseManager implements Serializable {
      * @param accountHolderName
      * @param initialBalance
      */
-    public void addAccount(String accountNo, String bankName, String accountHolderName, double initialBalance) {
+    public Account addAccount(String accountNo, String bankName, String accountHolderName, double initialBalance) {
         Account account = new Account(accountNo, bankName, accountHolderName, initialBalance);
         accountsHolder.addAccount(account);
+        return account;
     }
 
     /***

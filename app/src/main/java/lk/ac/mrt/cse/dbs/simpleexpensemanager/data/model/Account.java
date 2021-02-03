@@ -16,10 +16,12 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model;
 
+import java.io.Serializable;
+
 /**
  * This POJO holds the information about an account.
  */
-public class Account {
+public class Account implements Serializable {
     private String accountNo;
     private String bankName;
     private String accountHolderName;

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ import static android.widget.Toast.LENGTH_SHORT;
  * This is an In-Memory implementation of the AccountDAO interface. This is not a persistent storage. A HashMap is
  * used to store the account details temporarily in the memory.
  */
-public class PersistentAccountDAO extends DatabaseStore implements AccountDAO {
+public class PersistentAccountDAO extends DatabaseStore implements AccountDAO, Serializable {
     public static final String ACCOUNTS = "accounts";
     private final Map<String, Account> accounts;
 

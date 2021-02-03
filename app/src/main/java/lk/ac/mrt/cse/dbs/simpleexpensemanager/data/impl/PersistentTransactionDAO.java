@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +25,7 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
  * This is an In-Memory implementation of TransactionDAO interface. This is not a persistent storage. All the
  * transaction logs are stored in a LinkedList in memory.
  */
-public class PersistentTransactionDAO extends DatabaseStore implements TransactionDAO {
+public class PersistentTransactionDAO extends DatabaseStore implements TransactionDAO, Serializable {
     public static final String TRANSACTIONS = "transactions";
     private final List<Transaction> transactions;
 

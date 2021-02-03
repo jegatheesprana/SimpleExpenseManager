@@ -2,6 +2,8 @@ package lk.ac.mrt.cse.dbs.simpleexpensemanager.control;
 
 import android.content.Context;
 
+import java.io.Serializable;
+
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentAccountDAO;
@@ -13,7 +15,7 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 /**
  *
  */
-public class PersistentExpenseManager extends ExpenseManager {
+public class PersistentExpenseManager extends ExpenseManager implements Serializable {
     private Context context;
     public PersistentExpenseManager(Context context) {
         this.context = context;
